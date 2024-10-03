@@ -211,7 +211,6 @@ def search_word_api(si):
 
     searchword_loop_cnt = 0
     since_date = get_data_time()
-    print(search_text_raw)
 
     #ワード検索
     if si == '0':
@@ -221,7 +220,6 @@ def search_word_api(si):
         #前回取得したツイートより最新のツイートを取得する
         tweets = api.search_recent_tweets(query=search_text_raw, max_results=10, since_id=si, tweet_fields=["author_id"],
                                           expansions=["author_id"], user_fields=["id", "username"])
-    print(tweets)
 
     for result in tweets.data:
         tweet_text_raw = unescape(result.text)
