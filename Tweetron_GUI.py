@@ -126,7 +126,7 @@ if twitter_oauth_sw == 0:
 
             main_window.Element('-Auth_Button-').Update(disabled = True)
 
-            auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
+            auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback=callback_url)
             auth_url = auth.get_authorization_url()
             webbrowser.open(auth_url)
 
