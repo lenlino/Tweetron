@@ -117,7 +117,7 @@ access_token_secret = main_config.get('TwitterAPI', 'access_token_secret')
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback=callback_url)
 
 auth.set_access_token(access_token, access_token_secret)
-api = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret)
+api = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret, wait_on_rate_limit=True)
 
 port_number = main_config.get('MainConfig', 'portnumber')
 
@@ -220,6 +220,8 @@ def search_word_api(si):
         #前回取得したツイートより最新のツイートを取得する
         tweets = api.search_recent_tweets(query=search_text_raw, max_results=10, since_id=si, tweet_fields=["author_id"],
                                           expansions=["author_id"], user_fields=["id", "username"])
+    if tweets.data is None:
+        return tweet_list
 
     for result in tweets.data:
         tweet_text_raw = unescape(result.text)
